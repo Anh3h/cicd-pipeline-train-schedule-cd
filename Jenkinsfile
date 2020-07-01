@@ -38,12 +38,19 @@ pipeline {
                 }
             }
         }
+        Stage('Approve deployment to production') {
+            when {
+                branch 'master'
+            }
+            steps {
+                input 'Do you want to proceed with the production deployment?'
+            }
+        }
         stage('Deploy to production') {
             when {
                 branch 'master'
             }
             steps {
-                input 'Proceed with production deployment?'
                 milestone(1)
                 withCredentials([usernamePassword(credentialsId: 'webserver_login', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]){
                     sshPublisher(
