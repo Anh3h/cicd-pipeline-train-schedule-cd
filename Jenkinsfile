@@ -38,7 +38,7 @@ pipeline {
                 }
             }
         }
-        Stage('Approve deployment to production') {
+        stage('Approve deployment to production') {
             when {
                 branch 'master'
             }
